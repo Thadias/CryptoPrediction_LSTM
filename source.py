@@ -1,4 +1,5 @@
-from functions import cryptoData, lstm, preprocess
+from functions import cryptoData, lstm, preprocess, graphs
+import pandas as pd
 import time
 
 DIR_BACKUP = './backup/'
@@ -23,6 +24,19 @@ print('\n')
 btc_model = lstm.build_model(lstm_training_input, output_size=PRED_RANGE)
 btc_pred_prices = lstm.predict_model(btc_model, lstm_training_input, lstm_training_output,
                                      PRED_RANGE, test_set, lstm_test_input, WINDOW_SIZE)
+
+# temp_df = pd.DataFrame()
+# temp_df['Pred'] = btc_pred_prices
+# print(temp_df)
+# exit()
+
+# Graphs:
+# The Bitcoin price form the input data
+# graphs.bitcoin_price_graph(main_df)
+# Predicted data and for comnparision, the original from input.
+# graphs.bitcoin_pred_graph(main_df, lstm_test_input, btc_model,
+#                           SPLIT_TIME, WINDOW_SIZE)
+graphs.bitcoin_pred_graph(main_df, btc_pred_prices, SPLIT_TIME, WINDOW_SIZE, PRED_RANGE)
 
 end_pgm = start_pgm - time.time()
 print(f'Time for complete the program - {int(end_pgm)} seconds',
