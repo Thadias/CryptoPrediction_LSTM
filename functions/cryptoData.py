@@ -1,7 +1,4 @@
 import pandas as pd
-from sklearn import preprocessing
-import os
-import pickle
 import numpy as np
 
 FILE_NAME = 'BITSTAMPEUR.csv'

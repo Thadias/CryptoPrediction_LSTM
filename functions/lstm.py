@@ -1,6 +1,5 @@
 from keras.models import Sequential
-from keras.layers import Activation, Dense, Dropout
-from keras.layers import LSTM, CuDNNLSTM, BatchNormalization
+from keras.layers import Activation, Dense, Dropout, LSTM
 from keras.callbacks import TensorBoard
 
 import numpy as np
@@ -47,12 +46,8 @@ def predict_model(model, data_inputs, data_output, pred_range,
                 test_input['Close'].values[:-(window_size + pred_range)][::5].reshape(
                     int(np.ceil((len(data_test) - pred_range) / float(pred_range))), 1))
     print('BTC prediction prices calculated.')
-    # Testing
+
     btc_pred = np.array(btc_pred)
-
-    # print('Data in the Test_Input: ', test_input['Close'].values[:-(window_size + pred_range)][::5],
-    #       '\n', 'Index: ', test_input.index[:-(window_size + pred_range)][::5])
-
     pred_array = []
     for pred in btc_pred:
         for price in pred:
@@ -62,7 +57,7 @@ def predict_model(model, data_inputs, data_output, pred_range,
     pred_df = pd.DataFrame({'time': date_list, 'Pred': pred_array})
     pred_df.set_index('time', inplace=True)
 
-    print('Predicetd price ready for a graphs')
+    print('Predicted price ready for a graphs')
     return pred_df
 
 # def predict_prices(model, test_input, pred_range, data_test, window_size):
